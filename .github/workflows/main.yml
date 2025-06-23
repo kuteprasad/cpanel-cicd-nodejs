@@ -15,6 +15,11 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
+      - name: 🔐 Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "sunshineiot.in ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCylUVDX6fCDOaYuS5t05vVTPN/ozgnV+FIkwZiDod4aeY1cQ/KTYnkUgWSZKWQbR0HhfvhgedZPOSffmV7RO/q1okPc3ulsXcMrue1NdzXA7p+H5vHEcULjkKBC6Y/lTZuwC09y+Qbt1dG1p5S0PqzJ+fe9NKIccpY24mwVggVEjFlhgigqGICubiWNFJQb0utcpXuXXetxAT+/MweQgpwgWVoc+wjXeeUpMwQE2dI9j8IpLJIyXXVU2SEHytYKG+kIjQ/GQXIlc+JHPrITJKCM+7yB8Z0DFF8jZ7bYFA/skyQHjCwFHEEoHwcXbZ14PpYN3ryhsUHg5OMGCPfzPiQTjajlMYJwcqV8BeegpmYY025OnA1qBDTRJpfxikRBI+3Ekz4r/7CYlQUxMGfoFCr18NNP1hF9qPoujy3F8otcIjqc5CwBrCuzndTgq4jUcBLwmWCFjOc4nvwCRd2EAz95fiNSIVUPaBSS1rn/lHyjFIPXMsrMNN3a8wLSFgyZu0=" >> ~/.ssh/known_hosts
+
       - name: 📂 Upload project via SCP
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key.pem

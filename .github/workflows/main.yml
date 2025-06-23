@@ -20,11 +20,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "sunshineiot.in ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCylUVDX6fCDOaYuS5t05vVTPN/ozgnV+FIkwZiDod4aeY1cQ/KTYnkUgWSZKWQbR0HhfvhgedZPOSffmV7RO/q1okPc3ulsXcMrue1NdzXA7p+H5vHEcULjkKBC6Y/lTZuwC09y+Qbt1dG1p5S0PqzJ+fe9NKIccpY24mwVggVEjFlhgigqGICubiWNFJQb0utcpXuXXetxAT+/MweQgpwgWVoc+wjXeeUpMwQE2dI9j8IpLJIyXXVU2SEHytYKG+kIjQ/GQXIlc+JHPrITJKCM+7yB8Z0DFF8jZ7bYFA/skyQHjCwFHEEoHwcXbZ14PpYN3ryhsUHg5OMGCPfzPiQTjajlMYJwcqV8BeegpmYY025OnA1qBDTRJpfxikRBI+3Ekz4r/7CYlQUxMGfoFCr18NNP1hF9qPoujy3F8otcIjqc5CwBrCuzndTgq4jUcBLwmWCFjOc4nvwCRd2EAz95fiNSIVUPaBSS1rn/lHyjFIPXMsrMNN3a8wLSFgyZu0=" >> ~/.ssh/known_hosts
 
-      - name: 📂 Upload project via SCP
+      - name: 📂 Upload project via RSYNC
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -r -i private_key.pem ./ sunshineiot@sunshineiot.in:/home/sunshineiot/cpanel-cicd-nodejs/
+          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" \
+            --exclude=".git" ./ sunshineiot@sunshineiot.in:/home/sunshineiot/cpanel-cicd-nodejs/
 
       - name: 🔁 Restart server (PM2 or Node)
         run: |

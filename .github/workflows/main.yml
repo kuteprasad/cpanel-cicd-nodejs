@@ -9,6 +9,7 @@ jobs:
   backend-deploy:
     name: 🎉 Deploy Backend
     runs-on: ubuntu-latest
+    environment: test01
 
     steps:
       - name: 🚚 Get latest code

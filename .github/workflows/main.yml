@@ -1,9 +1,13 @@
-on: push
+on: 
+  push:
+    branches:
+      - main
+
 name: 🚀 Deploy website on push
 
 jobs:
   backend-deploy:
-    name: 🎉 Deploy
+    name: 🎉 Deploy Backend
     runs-on: ubuntu-latest
 
     steps:

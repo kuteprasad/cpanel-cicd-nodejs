@@ -15,11 +15,11 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 📂 Upload project via SCP
+      - name: 📦 Create and Upload Archive
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          tar --exclude='./.git' -czf code.tar.gz .
+          tar --exclude='./.git' --warning=no-file-changed -czf code.tar.gz . || true
           scp -i private_key.pem -o StrictHostKeyChecking=no code.tar.gz sunshineiot@sunshineiot.in:/home/sunshineiot/
           ssh -i private_key.pem -o StrictHostKeyChecking=no sunshineiot@sunshineiot.in "tar -xzf ~/code.tar.gz -C ~/cpanel-cicd-nodejs"
 

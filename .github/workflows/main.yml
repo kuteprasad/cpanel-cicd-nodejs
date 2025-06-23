@@ -17,7 +17,7 @@ jobs:
 
       - name: 📂 Upload project via SCP
         run: |
-          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           tar --exclude='./.git' -czf code.tar.gz .
           scp -i private_key.pem -o StrictHostKeyChecking=no code.tar.gz sunshineiot@sunshineiot.in:/home/sunshineiot/

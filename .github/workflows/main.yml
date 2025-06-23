@@ -1,9 +1,9 @@
 on: 
   push:
     branches:
-      - main
+      - ftp-deploy
 
-name: 🚀 Deploy Backend on Push
+name: 🚀 Deploy website on push
 
 jobs:
   backend-deploy:
@@ -15,19 +15,13 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 📦 Create and Upload Archive
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          tar --exclude='./.git' --warning=no-file-changed -czf code.tar.gz . || true
-          scp -i private_key.pem -o StrictHostKeyChecking=no code.tar.gz sunshineiot@sunshineiot.in:/home/sunshineiot/
-          ssh -i private_key.pem -o StrictHostKeyChecking=no sunshineiot@sunshineiot.in "tar -xzf ~/code.tar.gz -C ~/cpanel-cicd-nodejs"
-
-      - name: 🔁 Restart server (PM2 or Node)
-        run: |
-          ssh -i private_key.pem sunshineiot@sunshineiot.in << 'EOF'
-            cd /home/sunshineiot/cpanel-cicd-nodejs
-            npm install --omit=dev
-            pm2 restart index || node index.js &
-          EOF
-
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./
+          server-dir: /cpanel-cicd-nodejs/

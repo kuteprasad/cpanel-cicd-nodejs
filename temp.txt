@@ -1,0 +1,19 @@
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/sunshineiot/.ssh/id_rsa_test01.
+Your public key has been saved in /home/sunshineiot/.ssh/id_rsa_test01.pub.
+The key fingerprint is:
+SHA256:sccxzZ2PwZRkJdOMiIIig59tbtPvcclQLTx7wqewMAE 
+The key's randomart image is:
++---[RSA 4096]----+
+| .  E  .   . o**.|
+|. o ... ...+.=o+o|
+| . = .. ..B + =  |
+|  o o  . * *   + |
+|   o .o S * o . .|
+|    + .o * *     |
+|   . . .o =      |
+|        .o       |
+|       ..        |
++----[SHA256]-----+

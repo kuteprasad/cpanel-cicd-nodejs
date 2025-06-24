@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.send("kaise ho bhai? !");
+  res.send("kaise ho bhai? using SSH !");
 });
 
 app.listen(port, () => {
